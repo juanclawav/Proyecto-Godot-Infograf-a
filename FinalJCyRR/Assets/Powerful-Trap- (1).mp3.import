@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Powerful-Trap- (1).mp3-bb639d32af1d90e62e093c1693969290.mp3str"
+
+[deps]
+
+source_file="res://Assets/Powerful-Trap- (1).mp3"
+dest_files=[ "res://.import/Powerful-Trap- (1).mp3-bb639d32af1d90e62e093c1693969290.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

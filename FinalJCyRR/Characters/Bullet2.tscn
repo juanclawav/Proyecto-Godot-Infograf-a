@@ -1,0 +1,121 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Assets/spritesheet (2).png" type="Texture" id=1]
+[ext_resource path="res://Characters/Bullet.gd" type="Script" id=2]
+[ext_resource path="res://Characters/Thrown.tres" type="Animation" id=3]
+[ext_resource path="res://Characters/FadeOut.tres" type="Animation" id=4]
+[ext_resource path="res://Assets/346373__denao270__throwing-whip-effect.wav" type="AudioStream" id=5]
+[ext_resource path="res://Assets/roblox-death-sound-effect-[AudioTrimmer.com].tres" type="AudioStream" id=6]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 3.75, 3.9 )
+
+[sub_resource type="Animation" id=6]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 2 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="AnimationNodeAnimation" id=8]
+animation = "FadeOut"
+
+[sub_resource type="AnimationNodeAnimation" id=7]
+animation = "Thrown"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=9]
+
+[sub_resource type="AnimationNodeStateMachine" id=4]
+states/FadeOut/node = SubResource( 8 )
+states/FadeOut/position = Vector2( 468, 91 )
+states/Thrown/node = SubResource( 7 )
+states/Thrown/position = Vector2( 232, 51 )
+transitions = [ "Thrown", "FadeOut", SubResource( 9 ) ]
+start_node = "Thrown"
+end_node = "FadeOut"
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=5]
+
+[node name="Bullet2" type="RigidBody2D"]
+collision_layer = 8
+collision_mask = 3
+continuous_cd = 1
+contacts_reported = 1
+contact_monitor = true
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( -2.84217e-14, 0 )
+scale = Vector2( 0.0102669, 0.0107875 )
+texture = ExtResource( 1 )
+hframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/FadeOut = ExtResource( 4 )
+anims/RESET = SubResource( 6 )
+anims/Thrown = ExtResource( 3 )
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 4 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource( 5 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+
+[node name="AudioStreamPlayer1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+
+[connection signal="body_entered" from="." to="." method="_on_Bullet_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

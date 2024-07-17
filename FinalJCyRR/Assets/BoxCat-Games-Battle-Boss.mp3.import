@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/BoxCat-Games-Battle-Boss.mp3-932a897787f5ce33c9f1bcee0b2ca299.mp3str"
+
+[deps]
+
+source_file="res://Assets/BoxCat-Games-Battle-Boss.mp3"
+dest_files=[ "res://.import/BoxCat-Games-Battle-Boss.mp3-932a897787f5ce33c9f1bcee0b2ca299.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

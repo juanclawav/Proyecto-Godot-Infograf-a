@@ -1,0 +1,146 @@
+[gd_scene load_steps=25 format=2]
+
+[ext_resource path="res://Assets/spritesheet (4).png" type="Texture" id=1]
+[ext_resource path="res://Characters/Player.gd" type="Script" id=2]
+[ext_resource path="res://Idle.tres" type="Animation" id=3]
+[ext_resource path="res://Hurt.tres" type="Animation" id=4]
+[ext_resource path="res://Walk.tres" type="Animation" id=5]
+[ext_resource path="res://Death.tres" type="Animation" id=6]
+[ext_resource path="res://Assets/64939__syna-max__wilhelm-scream.wav" type="AudioStream" id=8]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 9, 14.25 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 10.375, 14.375 )
+
+[sub_resource type="Animation" id=6]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ ExtResource( 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:hframes")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 11 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="AnimationNodeAnimation" id=16]
+animation = "Death"
+
+[sub_resource type="AnimationNodeAnimation" id=7]
+animation = "Hurt"
+
+[sub_resource type="AnimationNodeAnimation" id=8]
+animation = "Idle"
+
+[sub_resource type="AnimationNodeAnimation" id=9]
+animation = "Walk"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=10]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=11]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=12]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=13]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=14]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=15]
+switch_mode = 2
+auto_advance = true
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=17]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=18]
+
+[sub_resource type="AnimationNodeStateMachine" id=4]
+states/Death/node = SubResource( 16 )
+states/Death/position = Vector2( 123, 223.444 )
+states/Hurt/node = SubResource( 7 )
+states/Hurt/position = Vector2( 589.667, 72.3333 )
+states/Idle/node = SubResource( 8 )
+states/Idle/position = Vector2( 152.333, 73.2222 )
+states/Walk/node = SubResource( 9 )
+states/Walk/position = Vector2( 368.333, 205.667 )
+transitions = [ "Idle", "Walk", SubResource( 10 ), "Walk", "Idle", SubResource( 11 ), "Idle", "Hurt", SubResource( 12 ), "Hurt", "Idle", SubResource( 13 ), "Walk", "Hurt", SubResource( 14 ), "Hurt", "Walk", SubResource( 15 ), "Idle", "Death", SubResource( 17 ), "Walk", "Death", SubResource( 18 ) ]
+start_node = "Idle"
+end_node = "Death"
+graph_offset = Vector2( 0, 28.2782 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=5]
+
+[node name="Player" type="KinematicBody2D"]
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -3, 0.75 )
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -2.38419e-07, -1 )
+scale = Vector2( 0.0790441, 0.0819328 )
+texture = ExtResource( 1 )
+hframes = 11
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2( -2.625, 0.625 )
+shape = SubResource( 2 )
+
+[node name="RefreshTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Death = ExtResource( 6 )
+anims/Hurt = ExtResource( 4 )
+anims/Idle = ExtResource( 3 )
+anims/RESET = SubResource( 6 )
+anims/Walk = ExtResource( 5 )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 4 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource( 5 )
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+
+[connection signal="body_entered" from="HitBox" to="." method="_on_HitBox_body_entered"]
+[connection signal="timeout" from="RefreshTimer" to="." method="_on_RefreshTimer_timeout"]

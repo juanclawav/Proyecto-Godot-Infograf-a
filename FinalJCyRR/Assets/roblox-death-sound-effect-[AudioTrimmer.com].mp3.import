@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/roblox-death-sound-effect-[AudioTrimmer.com].mp3-bb10b6b9a129ce8f0b1bd05427b5c7fc.mp3str"
+
+[deps]
+
+source_file="res://Assets/roblox-death-sound-effect-[AudioTrimmer.com].mp3"
+dest_files=[ "res://.import/roblox-death-sound-effect-[AudioTrimmer.com].mp3-bb10b6b9a129ce8f0b1bd05427b5c7fc.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

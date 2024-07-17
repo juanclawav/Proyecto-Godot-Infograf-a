@@ -1,0 +1,69 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Assets/pricedown bl.otf" type="DynamicFontData" id=1]
+[ext_resource path="res://UI/UI2.gd" type="Script" id=2]
+
+[sub_resource type="DynamicFont" id=3]
+size = 20
+font_data = ExtResource( 1 )
+
+[node name="UI2" type="CanvasLayer"]
+script = ExtResource( 2 )
+
+[node name="Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+
+[node name="CenterContainer2" type="CenterContainer" parent="Control"]
+anchor_right = 1.0
+margin_left = 23.0
+margin_top = 34.0
+margin_right = -647.0
+margin_bottom = 73.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/CenterContainer2"]
+margin_left = 99.0
+margin_top = 7.0
+margin_right = 254.0
+margin_bottom = 31.0
+
+[node name="Vidas" type="Label" parent="Control/CenterContainer2/HBoxContainer"]
+margin_right = 95.0
+margin_bottom = 24.0
+custom_fonts/font = SubResource( 3 )
+text = "J1       Vidas:"
+
+[node name="CountVidas" type="Label" parent="Control/CenterContainer2/HBoxContainer"]
+margin_left = 99.0
+margin_right = 155.0
+margin_bottom = 24.0
+custom_fonts/font = SubResource( 3 )
+text = "XX / XX"
+
+[node name="CenterContainer3" type="CenterContainer" parent="Control"]
+anchor_right = 1.0
+margin_left = 663.0
+margin_top = 31.0
+margin_right = -7.0
+margin_bottom = 70.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/CenterContainer3"]
+margin_left = 103.0
+margin_top = 7.0
+margin_right = 251.0
+margin_bottom = 31.0
+
+[node name="Vidas2" type="Label" parent="Control/CenterContainer3/HBoxContainer"]
+margin_right = 88.0
+margin_bottom = 24.0
+custom_fonts/font = SubResource( 3 )
+text = "J2    Vidas:"
+
+[node name="CountVidas2" type="Label" parent="Control/CenterContainer3/HBoxContainer"]
+margin_left = 92.0
+margin_right = 148.0
+margin_bottom = 24.0
+custom_fonts/font = SubResource( 3 )
+text = "XX / XX"
